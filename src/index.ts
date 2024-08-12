@@ -7,6 +7,7 @@ const port = process.env.PORT || 5000;
 
 app
 .use(swagger({path: "/docs"}))
+.get("/", () => "Welcome to the API")
 .group("/api", (app) => app.use(postRoutes))
 .listen(port);
 
