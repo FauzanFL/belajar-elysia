@@ -21,8 +21,9 @@ describe("GET /", () => {
         seedPosts();
         const response = await fetch("http://localhost:5000/api/posts");
         const jsonResp = await response.json();
-        console.log(jsonResp);
         expect(response.status).toBe(200);
-        expect(jsonResp.length).toBe(3);
+        expect(jsonResp.data).toBeDefined();
+        expect(jsonResp.data).toBeArray();
+        expect(jsonResp.data.length).toBe(3);
     })
 });
