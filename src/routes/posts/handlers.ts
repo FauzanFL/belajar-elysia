@@ -3,7 +3,8 @@ import db from '../../db'
 
 export async function getPosts() {
     try {
-        return await db.post.findMany({orderBy: {createdAt: 'asc'}});
+        const data = await db.post.findMany({orderBy: {createdAt: 'asc'}});
+        return {data};
     } catch (error) {
         console.error(error);
     }
@@ -15,7 +16,7 @@ export async function getPostById(id: number) {
         if (!post) {
             throw new NotFoundError('Post not found');
         }
-        return post;
+        return {data: post};
     } catch (error) {
         console.error(error);
     }
@@ -23,7 +24,8 @@ export async function getPostById(id: number) {
 
 export async function createPost(data: {title: string, content: string}) {
     try {
-        return await db.post.create({data});
+        await db.post.create({data});
+        return {data: {message: "Post created successfully"}};
     } catch (error) {
         console.error(`Error creating post: ${error}`);
     }
@@ -31,7 +33,8 @@ export async function createPost(data: {title: string, content: string}) {
 
 export async function updatePost(id: number, data: {title?: string, content?: string}) {
     try {
-        return await db.post.update({where: {id}, data});
+        await db.post.update({where: {id}, data});
+        return {data: {message: "Post updated successfully"}};
     } catch (error) {
         console.error(`Error updating post: ${error}`);
     }
@@ -39,7 +42,8 @@ export async function updatePost(id: number, data: {title?: string, content?: st
 
 export async function deletePost(id: number) {
     try {
-        return await db.post.delete({where: {id}});
+        await db.post.delete({where: {id}});
+        return {data: {message: "Post deleted successfully"}};
     } catch (error) {
         console.error(`Error deleting post: ${error}`);
     }
