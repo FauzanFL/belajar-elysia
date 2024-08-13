@@ -33,6 +33,10 @@ export async function createPost(data: {title: string, content: string}) {
 
 export async function updatePost(id: number, data: {title?: string, content?: string}) {
     try {
+        const post = db.post.findUnique({where: {id}});
+        if (!post) {
+            throw new NotFoundError('Post not found');
+        }
         await db.post.update({where: {id}, data});
         return {data: {message: "Post updated successfully"}};
     } catch (error) {
