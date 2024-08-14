@@ -12,7 +12,7 @@ export async function getPosts() {
 
 export async function getPostById(id: number) {
     try {
-        const post = db.post.findUnique({where: {id}});
+        const post = await db.post.findUnique({where: {id}});
         if (!post) {
             throw new NotFoundError('Post not found');
         }
@@ -33,7 +33,7 @@ export async function createPost(data: {title: string, content: string}) {
 
 export async function updatePost(id: number, data: {title?: string, content?: string}) {
     try {
-        const post = db.post.findUnique({where: {id}});
+        const post = await db.post.findUnique({where: {id}});
         if (!post) {
             throw new NotFoundError('Post not found');
         }

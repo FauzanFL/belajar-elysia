@@ -3,7 +3,7 @@ import { createPost, deletePost, getPostById, getPosts, updatePost } from "./han
 
 const postRoutes = new Elysia({prefix: "/posts"})
 .get("/", () => getPosts())
-.get("/:id", ({params: {id}}) => getPostById(id), {
+.get("/:id", ({params: {id}}) =>  getPostById(id), {
     params: t.Object({id: t.Number()})
 })
 .post("/", ({body}) => createPost(body), {
@@ -13,7 +13,7 @@ const postRoutes = new Elysia({prefix: "/posts"})
             maxLength: 100
         }),
         content: t.String({
-            minLength: 10
+            minLength: 1
         })
     })
 })
@@ -25,7 +25,7 @@ const postRoutes = new Elysia({prefix: "/posts"})
             maxLength: 100
         })),
         content: t.Optional(t.String({
-            minLength: 10
+            minLength: 1
         }))
     }, {
         minProperties: 1
